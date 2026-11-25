@@ -33,6 +33,7 @@ const kPa = (v: number) => v.toFixed(2);
 const dliText = (v: number) => v.toFixed(1);
 const mL = (litres: number) => Math.round(litres * 1000);
 const pct = (fraction: number) => Math.round(fraction * 100);
+const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
 
 function humidityReason({ vpdKPa }: WateringFactors): Reason {
   const effect: Effect = vpdKPa > DRY_AIR_VPD_KPA ? "sooner" : vpdKPa < HUMID_AIR_VPD_KPA ? "later" : "typical";
@@ -61,7 +62,7 @@ function potReason(plant: PlantInput, { budgetL, lossLPerDay }: WateringFactors)
     factor: "pot",
     value: `${plant.potDiameterCm} cm pot, ${plant.soil} mix`,
     sentence:
-      `${plant.soil} mix holds about ${fraction}% plant-available water and this plant can use ` +
+      `${capitalize(plant.soil)} mix holds about ${fraction}% plant-available water and this plant can use ` +
       `${depletion}% of it, a budget of ${mL(budgetL)} mL; it loses about ${mL(lossLPerDay)} mL/day.`,
     effect: "typical",
   };
