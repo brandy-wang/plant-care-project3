@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Plant Care (P3): watering predictions that show their working
 
-## Getting Started
-
-First, run the development server:
+Predicts when each houseplant needs water from room humidity (VPD), light (DLI), pot and soil, using published
+plant science, and always explains **why**, with the numbers, as a range. See [docs/PRD.md](docs/PRD.md).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+export PATH=~/.local/node/bin:$PATH   # local Node 22 (see CLAUDE.md)
+npm install
+npm test            # 42 example + property tests
+npm run mutate      # Stryker mutation testing (model)
+npm run dev         # http://localhost:3000 → /plants/pothos
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## HW4: where to find each deliverable
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Rubric item | Evidence |
+|---|---|
+| **Part 1: CLAUDE.md & setup** | [CLAUDE.md](CLAUDE.md) (stack, architecture decisions, conventions, testing strategy, do's/don'ts, `@docs/PRD.md` / `@docs/model-science.md` / `@AGENTS.md` imports) · permissions in [.claude/settings.json](.claude/settings.json) · `/init` output and two iterations in [docs/claude-md-history/](docs/claude-md-history/README.md) · context strategy in CLAUDE.md §Context management and [session log §5](docs/session-log.md) |
+| **Part 2: Explore→Plan→Implement→Commit** | Story 2 ("why this date"): explore notes [docs/features/why-explanation.md](docs/features/why-explanation.md) (`4d158e7`) → approved plan [docs/plans/why-explanation-plan.md](docs/plans/why-explanation-plan.md) (`a2b5236`) → implement commits `f26944c`…`8eeb78e` |
+| **Part 3: TDD** | Story 1 model: acceptance criteria in [docs/features/watering-prediction.md](docs/features/watering-prediction.md); `test(...): red` / `feat(...): green` / `refactor(...)` commits `875a420`…`b620c8f`; Stryker 100 % |
+| **Part 4: Reflection & log** | [docs/reflection.md](docs/reflection.md) · [docs/session-log.md](docs/session-log.md) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`git log --oneline --reverse` shows the full workflow.
