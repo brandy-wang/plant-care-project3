@@ -21,7 +21,8 @@ Owners manage plants; sitters only see today's tasks for shared plants.
   `export PATH=~/.local/node/bin:$PATH`.
 
 ## Commands
-- `npm run dev` / `npm run build` / `npm run lint` / `npm run typecheck`
+- `npm run dev` / `npm run build` / `npm run lint`
+- `npm run typecheck` — runs `next typegen` first; without it `PageProps<"/plants/[id]">` fails to typecheck
 - `npm test` — all tests once; `npx vitest run src/lib/model/vpd.test.ts -t "name"` for one test
 - `npm run coverage` — V8 coverage for `src/lib/**`
 - `npm run mutate` — Stryker over `src/lib/model/**`; build breaks below 75 % mutation score
@@ -34,7 +35,8 @@ Owners manage plants; sitters only see today's tasks for shared plants.
 3. **Explanations are derived, not written.** `src/lib/explain/` turns model factors into plain-language
    sentences; UI and agent render those, they do not re-derive numbers.
 4. **Server components fetch, model computes, client components render.** Data access (Postgres) will live in
-   `src/lib/db/` and is the only layer allowed to do I/O.
+   `src/lib/db/` and is the only layer allowed to do I/O. Until then `src/lib/plants/sample-plants.ts` is
+   the stand-in; dynamic routes use it for `generateStaticParams` (Cache Components needs ≥ 1 param).
 5. **Units in names**: `tempC`, `rhPct`, `potDiameterCm`, `lossLPerDay`, `dli` (mol·m⁻²·d⁻¹), `vpdKPa`.
 
 ## Coding conventions
@@ -60,6 +62,11 @@ Owners manage plants; sitters only see today's tasks for shared plants.
 - Run `npm test && npm run typecheck && npm run lint` before every commit.
 - Keep commits small and phase-labelled so the history shows Explore→Plan→Implement→Commit and red/green/refactor.
 - Use Plan mode for anything touching more than two files.
+- Compute test reference values with unrounded arithmetic (a quick `python3 -c` is fine); hand-rounded
+  intermediates produced a false red in AC5.
+- Keep refactor commits behaviour-preserving. New behaviour found mid-refactor (e.g. NaN rejection,
+  the `capped` flag) gets its own red → green cycle.
+- Run `npm run mutate` after changing `src/lib/model/**` and kill survivors with new tests.
 
 ## Don't
 - Don't put model maths in components, route handlers or agent prompts.
