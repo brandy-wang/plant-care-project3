@@ -50,5 +50,7 @@ Evapotranspiration from the pot surface, a simplified indoor linear model:
 1 mm over 1 m² = 1 L, so loss (L/day) = ET · surface area (m²), surface area = π·(d/200)².
 
 ## Prediction range
-Days until watering = (available water · depletion) / daily loss. Uncertainty band ±25 % on ET gives
-the range: earliest = floor(budget / (loss·1.25)), latest = ceil(budget / (loss·0.75)), both ≥ 1.
+Days until watering = (available water · depletion) / daily loss. An uncertainty band of ±15 % on ET
+gives the range: earliest = floor(budget / (loss·1.15)), latest = ceil(budget / (loss·0.85)).
+Both are clamped to 1…60 days; at the 60-day cap the app tells the user to check the soil by hand.
+(±25 % was tried first and gave 8–15 days for a typical pothos — too wide to act on.)
