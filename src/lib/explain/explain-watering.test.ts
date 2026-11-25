@@ -47,6 +47,10 @@ describe("explainWatering — story 2", () => {
     expect(pot.sentence).toContain("28 mL/day");
   });
 
+  it("every reason sentence starts with a capital letter", () => {
+    for (const r of explain(pothos, livingRoom).reasons) expect(r.sentence[0]).toMatch(/[A-Z]/);
+  });
+
   it("states the method with the ±15% band", () => {
     expect(explain(pothos, livingRoom).method).toMatch(/298 mL ÷ 28 mL\/day ≈ 10\.7 days, ±15%/);
   });
