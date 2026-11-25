@@ -11,7 +11,7 @@
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
     "mutate": "stryker run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "next typegen && tsc --noEmit"
   },
   "dependencies": {
     "next": "16.4.6",
