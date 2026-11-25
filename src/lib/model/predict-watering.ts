@@ -32,6 +32,8 @@ export type WateringFactors = {
 export type WateringPrediction = {
   earliestDays: number;
   latestDays: number;
+  /** True when the range hit MAX_PREDICTION_DAYS: tell the user to check the soil by hand. */
+  capped: boolean;
   factors: WateringFactors;
 };
 
@@ -47,10 +49,12 @@ export function predictWatering(plant: PlantInput, env: EnvInput): WateringPredi
 
   const fastLoss = lossLPerDay * (1 + ET_UNCERTAINTY);
   const slowLoss = lossLPerDay * (1 - ET_UNCERTAINTY);
+  const latestDays = clampDays(Math.ceil(budgetL / slowLoss));
 
   return {
     earliestDays: clampDays(Math.floor(budgetL / fastLoss)),
-    latestDays: clampDays(Math.ceil(budgetL / slowLoss)),
+    latestDays,
+    capped: latestDays === MAX_PREDICTION_DAYS,
     factors: { vpdKPa: vpd, dli: env.dli, budgetL, lossLPerDay, centralDays: budgetL / lossLPerDay },
   };
 }
