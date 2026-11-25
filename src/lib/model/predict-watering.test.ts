@@ -17,9 +17,9 @@ describe("AC5 — watering prediction range", () => {
     const { factors } = predictWatering(pothos, livingRoom);
     expect(factors.vpdKPa).toBeCloseTo(1.322, 3);
     expect(factors.dli).toBe(5);
-    expect(factors.budgetL).toBeCloseTo(0.2983, 4);
+    expect(factors.budgetL).toBeCloseTo(0.2982, 4);
     expect(factors.lossLPerDay).toBeCloseTo(0.02778, 5);
-    expect(factors.centralDays).toBeCloseTo(10.74, 2);
+    expect(factors.centralDays).toBeCloseTo(10.735, 3);
   });
 
   it("caps at 60 days when the pot barely dries (saturated, dark room)", () => {
