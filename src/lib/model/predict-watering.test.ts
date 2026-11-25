@@ -26,6 +26,11 @@ describe("AC5 — watering prediction range", () => {
     const p = predictWatering(pothos, { tempC: 20, rhPct: 100, dli: 0 });
     expect(p.earliestDays).toBe(60);
     expect(p.latestDays).toBe(60);
+    expect(p.capped).toBe(true);
+  });
+
+  it("is not capped in normal conditions", () => {
+    expect(predictWatering(pothos, livingRoom).capped).toBe(false);
   });
 
   const plant = fc.record({
