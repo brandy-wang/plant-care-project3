@@ -15,6 +15,7 @@ describe("AC4 — daily water loss from the pot", () => {
   it("rejects negative VPD or DLI", () => {
     expect(() => dailyWaterLossL(-0.1, 5, 15)).toThrow(/vpdKPa/);
     expect(() => dailyWaterLossL(1, -1, 15)).toThrow(/dli/);
+    expect(() => dailyWaterLossL(1, 5, 2)).toThrow(/potDiameterCm/);
   });
 
   const vpd = fc.double({ min: 0, max: 6, noNaN: true });

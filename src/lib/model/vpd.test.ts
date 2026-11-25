@@ -25,4 +25,9 @@ describe("AC1 — vapour pressure deficit (Tetens)", () => {
     expect(() => vpdKPa(-11, 50)).toThrow(RangeError);
     expect(() => vpdKPa(51, 50)).toThrow(/tempC/);
   });
+
+  it("accepts cold rooms down to -10 °C (unheated porch, winter windowsill)", () => {
+    expect(() => vpdKPa(-10, 50)).not.toThrow();
+    expect(vpdKPa(5, 50)).toBeGreaterThan(0);
+  });
 });
