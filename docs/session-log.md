@@ -23,7 +23,7 @@ session (`claude` in the repo folder), because the desktop app manages context i
 
 | # | Step | Result | 💬 Note |
 |---|---|---|---|
-| P1 | ▶ `/init` | Claude read `README.md`, `package.json`, `tsconfig.json`, `eslint.config.mjs`, `next.config.ts`, and checked for Cursor/Copilot/Codex rules (found `~/.codex/config.toml`; it offers `/import` instead of reading it) | |
+| P1 | ▶ `/init` | Claude read `README.md`, `package.json`, `tsconfig.json`, `eslint.config.mjs`, `next.config.ts`, and checked for Cursor/Copilot/Codex rules (found `~/.codex/config.toml`; it offers `/import` instead of reading it) | `/init` gives a starting file from the scaffold, not a finished one; P2–P3 show what we added. |
 | P2 | → generated CLAUDE.md: 20 lines covering commands, App Router, the `@/*` alias and `cacheComponents` | `065f9c4`, snapshot `docs/claude-md-history/01-init-output.md` | Accurate but generic. It knew nothing about plants, TDD or the pure-model rule. |
 | P3 | ▶ Iterate: write `docs/PRD.md` and `docs/model-science.md`, add `@docs/PRD.md`, `@docs/model-science.md`, `@AGENTS.md` imports, plus architecture decisions, unit-suffixed names, testing strategy, do's/don'ts and context habits | `59791ae`, snapshot `02-iterated.md` | The `@imports` mean every new session starts out knowing the stories and equations. |
 | P4 | ▶ `.claude/settings.json`: allow test/lint/typecheck/git; ask for installs, push, reset and `package.json`/`CLAUDE.md` edits; deny `.env*`, `curl`/`wget`/WebFetch, `rm -rf`, force-push; sandbox on | same commit | The deny list blocks the risky actions an agent could take without asking. Edits to the rules file itself require asking. |
@@ -76,7 +76,6 @@ green, commit **refactor**.
 |---|---|---|
 | `/clear` | Between unrelated tasks, e.g. after the TDD model work and before starting the story-2 UI. The `@imports` in CLAUDE.md reload the PRD and science notes, so nothing important is lost. | 📸 [context-3-clear.png](screenshots/context-3-clear.png): after `/clear`, "what are the user stories?" was answered from the imported PRD in 4 s, with no file reads. |
 | `/compact Keep: current AC, failing test name, files touched` | When a long TDD session approaches the context limit | 📸 [before](screenshots/context-1-before-compact.png) · [after](screenshots/context-2-compact.png): "Compacted", then Claude Code re-read `docs/model-science.md`, `docs/PRD.md` and `AGENTS.md` on its own. |
-| `claude --continue` | Resuming the next day: `cd plant-care-p3 && claude --continue`, then "run npm test and tell me where we left off" | 📸 [context-4-where-left-off.png](screenshots/context-4-where-left-off.png): after exiting and running `claude --continue`, "where did we leave off?" got a done / still-open list built from git and the docs. |
-| `/context` | Checking how much the imports and tool output cost | *(optional)* |
+| `claude --continue` | Resuming after a break: `cd plant-care-project3 && claude --continue`, then "where did we leave off?" | 📸 [context-4-where-left-off.png](screenshots/context-4-where-left-off.png): after exiting and running `claude --continue`, "where did we leave off?" got a done / still-open list built from git and the docs. |
 
 In this desktop session, the app compacts context automatically. The project's durable memory is CLAUDE.md plus `docs/`, not the chat.
