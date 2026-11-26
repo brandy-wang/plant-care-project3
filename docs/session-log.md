@@ -4,9 +4,8 @@ One Claude Code session (desktop app, Code tab, model Claude Opus 5.5) took the 
 to the current state. Entries are condensed from the transcript: **▶ prompt/tool call**, then
 **→ result**, then a 💬 note on why it matters. Commit hashes link each step to `git log`.
 
-> **To do before submitting:** the context commands (`/clear`, `/compact`, `--continue`) in section 5 must
-> be run by you in a terminal session, because the desktop app runs them itself and they can't be scripted
-> from inside a session. Paste your screenshots or output into the slots marked 📸.
+Section 4b is Chenxi's review-and-verify session, and the section 5 screenshots come from Chenxi's terminal
+session (`claude` in the repo folder), because the desktop app manages context itself.
 
 ---
 
@@ -77,7 +76,7 @@ green, commit **refactor**.
 |---|---|---|
 | `/clear` | Between unrelated tasks, e.g. after the TDD model work and before starting the story-2 UI. The `@imports` in CLAUDE.md reload the PRD and science notes, so nothing important is lost. | 📸 [context-3-clear.png](screenshots/context-3-clear.png): after `/clear`, "what are the user stories?" was answered from the imported PRD in 4 s, with no file reads. |
 | `/compact Keep: current AC, failing test name, files touched` | When a long TDD session approaches the context limit | 📸 [before](screenshots/context-1-before-compact.png) · [after](screenshots/context-2-compact.png): "Compacted", then Claude Code re-read `docs/model-science.md`, `docs/PRD.md` and `AGENTS.md` on its own. |
-| `claude --continue` | Resuming the next day: `cd plant-care-p3 && claude --continue`, then "run npm test and tell me where we left off" | *(screenshot)* |
+| `claude --continue` | Resuming the next day: `cd plant-care-p3 && claude --continue`, then "run npm test and tell me where we left off" | 📸 [context-4-where-left-off.png](screenshots/context-4-where-left-off.png): after exiting and running `claude --continue`, "where did we leave off?" got a done / still-open list built from git and the docs. |
 | `/context` | Checking how much the imports and tool output cost | *(optional)* |
 
 In this desktop session, the app compacts context automatically. The project's durable memory is CLAUDE.md plus `docs/`, not the chat.

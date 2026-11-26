@@ -2,9 +2,6 @@
 
 *Pair: Chenxi Liu (@ch3nxi1iu), Brandy (@brandy-wang) · Project P3: Transparent Plant Care*
 
-> ✏️ **Draft.** Still to do: the three context-management bullets in section 2 marked *[after running]*,
-> once we have run the commands and taken screenshots.
-
 ## 1. How Explore → Plan → Implement → Commit compares to our previous approach
 
 **Before.** On earlier projects we mostly used Claude in the web chat: we described a feature, pasted the
@@ -68,8 +65,10 @@ also what the story-6 agent will rely on when it explains changes.
   the summary must keep during a long TDD run. When we ran it, Claude Code re-read the three imported files
   (`docs/model-science.md`, `docs/PRD.md`, `AGENTS.md`) right after compacting, so the project knowledge came
   back from files rather than depending on the summary. We didn't compare it with a bare `/compact`.
-- **`claude --continue`** to resume the previous day's session, followed by "run `npm test` and tell me where
-  we left off", got us back to work quickly. *[after running: confirm]*
+- **`claude --continue`** resumes the last session after a break. When we exited, resumed and asked "where did
+  we leave off?", Claude checked git and the docs (two searches, one shell command, 16 s) and listed what was
+  done, the screenshots not yet committed, and the placeholders still open, with line numbers. Because our
+  progress lives in commits and files, resuming didn't depend on the chat history.
 - **Filtering tool output** (`vitest … | grep "Tests "`) kept each red/green check to a single line of context.
 
 **Permissions as context control.** The allowlist let test, lint and git commands run without prompts, so
