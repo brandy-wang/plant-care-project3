@@ -52,13 +52,24 @@ green, commit **refactor**.
 | **Explore** | `find node_modules/next/dist/docs -iname "*cache*component*"` (Glob); `grep -n params …layouts-and-pages.md`; Read `cacheComponents.md`, `migrating-to-cache-components.md` §generateStaticParams; Read `src/app/page.tsx`, `layout.tsx`; `grep -rn "^export" src/lib/model` | Findings in `docs/features/why-explanation.md`: `params` is a Promise; `generateStaticParams` must return ≥ 1 param; the model already exposes all factors. **commit `4d158e7`** |
 | **Plan** | `EnterPlanMode` → plan written to the plan file → `ExitPlanMode` → **user approved** | Plan copied to `docs/plans/why-explanation-plan.md`. **commit `a2b5236`** |
 | **Implement** | TDD for the pure explain layer (red `f26944c` → green `76f4cbc` → refactor `4a7eef9`); sample plants `a9ff80b`; `WhyCard` + `/plants/[id]` `7ce4fb7`; home list `9d16918` | ⚠️ `tsc` failed: `'"/plants/[id]"' does not satisfy the constraint '"/"'`. Route types are generated, so the fix was `next typegen`, and `typecheck` now runs it first. |
-| **Verify** | `npm run build` (prerendered `/plants/pothos`, `/calathea`, `/snake-plant`); `next start` + browser pane: `/` lists 9–13 / 10–14 / 9–13 days; `/plants/pothos` shows all three reasons with numbers; `/plants/nope` gives a 404 | 📸 *(add screenshot of /plants/pothos)* |
+| **Verify** | `npm run build` (prerendered `/plants/pothos`, `/calathea`, `/snake-plant`); `next start` + browser pane: `/` lists 9–13 / 10–14 / 9–13 days; `/plants/pothos` shows all three reasons with numbers; `/plants/nope` gives a 404 | 📸 [`/plants/pothos`](screenshots/plants-pothos.jpg), below |
 | **Commit (fix)** | The browser check showed "standard mix holds…" in lowercase, so a red/green cycle fixed it: `081f657` → `8eeb78e` | ⚠️ `git add -A` swept in `.claude/launch.json` (a machine-specific path); `51502ef` untracks it and gitignores it. |
 | **Iterate CLAUDE.md** | Lessons from the mistakes above added to CLAUDE.md | `51502ef`, snapshot `03-after-features.md` |
+
+![/plants/pothos: "Water in 9–13 days" with the Humidity, Light and Pot & soil reasons and the calculation line](screenshots/plants-pothos.jpg)
 
 ## 4. Final state
 - 36 commits; 42 tests (example + fast-check property tests); Stryker 100 % on `src/lib/model`.
 - `npm test && npm run typecheck && npm run lint && npm run build` all pass.
+
+## 4b. Partner check (Chenxi's Claude Code session, 2026-11-25)
+
+| # | Step | Result | 💬 Note |
+|---|---|---|---|
+| C1 | ▶ Read the repo on GitHub against the HW4 rubric (`gh api` tree, commits, CLAUDE.md, session log) | Parts 1–3 covered; missing: context-command evidence, `/plants/pothos` screenshot, reflection placeholders | Reviewing the work against the rubric before adding to it. |
+| C2 | ▶ Fresh clone, `npm ci`, `npm test`, `npm run typecheck`, `npm run lint`, `npm run build` | 42/42 tests pass; typecheck, lint and build clean | Confirms the work reproduces on a second machine (Node 24), not only on the machine that wrote it. |
+| C3 | ▶ `next start` + browser pane → `/plants/pothos` | Screenshot above: 9–13 days, VPD 1.32 kPa, DLI 5.0, 298 mL budget, 28 mL/day | Fills the Verify evidence slot. |
+| C4 | ▶ Reflection placeholders filled from Chenxi's answers (previous workflow, cost, what we'd do differently) | `docs/reflection.md` | Claude asked instead of inventing our experience. |
 
 ## 5. Context management (📸 run these yourselves and paste the output)
 
