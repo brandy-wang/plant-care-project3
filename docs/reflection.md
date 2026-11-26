@@ -61,9 +61,13 @@ also what the story-6 agent will rely on when it explains changes.
 - **Durable knowledge belongs in files, not chat.** Plans (`docs/plans/`), Explore findings and acceptance
   criteria are committed, so `/clear` costs nothing and a partner can pick up the work.
 - **`/clear` between phases of different kinds** (model TDD → UI feature) kept the UI session from carrying
-  hundreds of lines of test output. *[after running: what we saw]*
-- **`/compact` with an instruction** ("Keep: current AC, failing test name, files touched") worked better than
-  a bare `/compact` for long TDD runs. *[after running: confirm]*
+  hundreds of lines of test output. When we ran it and then asked "what are the user stories?", Claude listed
+  all seven stories and the HW4 scope in about 4 seconds without opening a file, because CLAUDE.md imports
+  `docs/PRD.md`.
+- **`/compact` with an instruction** ("Keep: current AC, failing test name, files touched") tells Claude what
+  the summary must keep during a long TDD run. When we ran it, Claude Code re-read the three imported files
+  (`docs/model-science.md`, `docs/PRD.md`, `AGENTS.md`) right after compacting, so the project knowledge came
+  back from files rather than depending on the summary. We didn't compare it with a bare `/compact`.
 - **`claude --continue`** to resume the previous day's session, followed by "run `npm test` and tell me where
   we left off", got us back to work quickly. *[after running: confirm]*
 - **Filtering tool output** (`vitest … | grep "Tests "`) kept each red/green check to a single line of context.

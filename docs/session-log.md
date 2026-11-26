@@ -75,8 +75,8 @@ green, commit **refactor**.
 
 | Command | When we use it | 📸 Evidence |
 |---|---|---|
-| `/clear` | Between unrelated tasks, e.g. after the TDD model work and before starting the story-2 UI. The `@imports` in CLAUDE.md reload the PRD and science notes, so nothing important is lost. | *(screenshot)* |
-| `/compact Keep: current AC, failing test name, files touched` | When a long TDD session approaches the context limit | *(screenshot of the summary)* |
+| `/clear` | Between unrelated tasks, e.g. after the TDD model work and before starting the story-2 UI. The `@imports` in CLAUDE.md reload the PRD and science notes, so nothing important is lost. | 📸 [context-3-clear.png](screenshots/context-3-clear.png): after `/clear`, "what are the user stories?" was answered from the imported PRD in 4 s, with no file reads. |
+| `/compact Keep: current AC, failing test name, files touched` | When a long TDD session approaches the context limit | 📸 [before](screenshots/context-1-before-compact.png) · [after](screenshots/context-2-compact.png): "Compacted", then Claude Code re-read `docs/model-science.md`, `docs/PRD.md` and `AGENTS.md` on its own. |
 | `claude --continue` | Resuming the next day: `cd plant-care-p3 && claude --continue`, then "run npm test and tell me where we left off" | *(screenshot)* |
 | `/context` | Checking how much the imports and tool output cost | *(optional)* |
 
