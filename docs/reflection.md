@@ -1,15 +1,15 @@
 # HW4 Reflection: Claude Code workflow and TDD
 
-*Pair: [Name 1], [Name 2] · Project P3: Transparent Plant Care*
+*Pair: Chenxi Liu (@ch3nxi1iu), Brandy (@brandy-wang) · Project P3: Transparent Plant Care*
 
-> ✏️ **Draft.** Claude Code wrote this from the session log. Replace every *[bracketed]* part with your own
-> experience, and rewrite anything that doesn't sound like you before you submit.
+> ✏️ **Draft.** Still to do: the three context-management bullets in section 2 marked *[after running]*,
+> once we have run the commands and taken screenshots.
 
 ## 1. How Explore → Plan → Implement → Commit compares to our previous approach
 
-**Before.** *[Describe how you usually worked on earlier projects or with AI assistants. For example: we opened
-ChatGPT/Copilot, described the feature, pasted the code it gave us into the editor, and fixed errors as they
-appeared. We committed once at the end of a feature with a message like "finished UI".]*
+**Before.** On earlier projects we mostly used Claude in the web chat: we described a feature, pasted the
+generated code into our files, and fixed errors as they appeared. Tests came after the code, once the feature
+worked. We committed when a feature was finished, so the history showed the result but not the steps.
 
 **What changed.** The biggest difference was that **Explore produced a written artifact before any code
 existed**. For story 2 ("why this watering date"), Claude read the Next.js 16 docs bundled in `node_modules`
@@ -30,8 +30,9 @@ lowercase sentence that the unit tests missed. Small, labelled commits made each
 instead of hiding it in a large final commit.
 
 **Cost.** The workflow is slower to start. For a one-line change, Explore and Plan feel heavy, which is why our
-CLAUDE.md only requires Plan mode for changes that touch more than two files. *[Add your own view: was the
-extra time worth it? Where would you skip a phase?]*
+CLAUDE.md only requires Plan mode for changes that touch more than two files. For us the extra time was worth it
+for changes that touch several files, like story 2, where the plan settled design decisions before any code
+existed. For a one-line fix we would skip Explore and Plan and go straight to a failing test and the fix.
 
 ### TDD specifically
 Strict red → green → refactor worked very well for the model because it is pure functions. Three lessons stood out:
@@ -60,11 +61,11 @@ also what the story-6 agent will rely on when it explains changes.
 - **Durable knowledge belongs in files, not chat.** Plans (`docs/plans/`), Explore findings and acceptance
   criteria are committed, so `/clear` costs nothing and a partner can pick up the work.
 - **`/clear` between phases of different kinds** (model TDD → UI feature) kept the UI session from carrying
-  hundreds of lines of test output. *[Describe what you saw when you ran it.]*
+  hundreds of lines of test output. *[after running: what we saw]*
 - **`/compact` with an instruction** ("Keep: current AC, failing test name, files touched") worked better than
-  a bare `/compact` for long TDD runs. *[Confirm from your own run.]*
+  a bare `/compact` for long TDD runs. *[after running: confirm]*
 - **`claude --continue`** to resume the previous day's session, followed by "run `npm test` and tell me where
-  we left off", got us back to work quickly. *[Confirm from your own run.]*
+  we left off", got us back to work quickly. *[after running: confirm]*
 - **Filtering tool output** (`vitest … | grep "Tests "`) kept each red/green check to a single line of context.
 
 **Permissions as context control.** The allowlist let test, lint and git commands run without prompts, so
@@ -75,6 +76,11 @@ and network fetches were denied outright.
 - Pin dependency versions only after checking `npm view … dist-tags`. Our first choices had a critical
   advisory.
 - Stage files by name instead of `git add -A` (it picked up a machine-specific `.claude/launch.json`).
-- *[Your own point here, e.g. how you split work between the two partners.]*
+- Use a branch and pull request for every issue instead of committing straight to `main`. Every HW4 commit
+  went to `main`, so no change was reviewed by the other partner before it landed. P3 requires
+  branch-per-issue PRs reviewed by the partner, so we will work that way from now on.
 
-*Session evidence: `docs/session-log.md` · Git history: `git log --oneline` (36 commits).*
+*Session evidence: `docs/session-log.md` · Git history: `git log --oneline --reverse`.*
+
+*AI usage: Claude Code drafted this reflection from the session log and our own answers; we reviewed and
+edited it before submitting.*
